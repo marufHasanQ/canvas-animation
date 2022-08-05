@@ -1,6 +1,18 @@
+//document.onload = () =>  setTimeout()
+
+//setTimeout( () => console.log('ok'),4000);
+
+document.onload = setTimeout(() => alert(`
+\u2190 & \u2192 to change animation mode. 
+[space] to pause the animation.
+`),5000);
 const canvas = document.getElementById("tutorial");
 const context = canvas.getContext("2d");
 context.globalAlpha = 0.5;
+
+let particlesArray = [];
+let color = '';
+let pause = false;
 
 let rotationSpeed = 0.0;
 let frameCount = 0;
@@ -10,21 +22,11 @@ const cursor = {
     y: innerHeight / 2,
 };
 
-let particlesArray = [];
-let color = '';
-let pause = false;
 
-alert([1,2,4].at(-9));
 generateParticles(140);
+
 setSize();
 anim();
-
-/*
-addEventListener("mousemove", (e) => {
-    cursor.x = e.clientX;
-    cursor.y = e.clientY;
-});
-*/
 
 addEventListener(
     "keyup",
@@ -119,20 +121,26 @@ function anim() {
     }
     context.fillStyle = "rgba(0,0,0,0.05)";
     context.fillRect(0, 0, canvas.width, canvas.height);
+
     if(new Date().getSeconds() % 4 === 0){
 
         color = generateColor();
 
     }
 
-    const outOfBoundParticle = particlesArray.find(v => v.t > innerWidth/5); 
-    if(outOfBoundParticle){
-        outOfBoundParticle.x = cursor.x;
-        outOfBoundParticle.y = cursor.y;
-        outOfBoundParticle.strokeColor = color;
-        outOfBoundParticle.t = 2;
-    }
 
-    particlesArray.forEach((particle) => particle.rotate());
+    particlesArray.forEach((particle) =>{
+
+        // const outOfBoundParticle = particlesArray.find(v => v.t > innerWidth/5); 
+
+        const outOfBoundParticle = particle.t > innerWidth/5 ? particle : false; 
+        if(outOfBoundParticle){
+            outOfBoundParticle.x = cursor.x;
+            outOfBoundParticle.y = cursor.y;
+            outOfBoundParticle.strokeColor = color;
+            outOfBoundParticle.t = 2;
+        }
+        particle.rotate();
+    })
 }
 

@@ -4,12 +4,45 @@
         <meta charset="utf-8"/>
         <title>Canvas tutorial</title>
         <style>
-canvas { border: 1px solid white}
-body { background : white}
+html{ overflow: hidden}
+canvas { border: 1px solid white }
+
+body { background : white;
+    margin : 0px;
+}
+
+.slide-out {
+    color : white;
+border-radius: 2px;
+position: absolute;
+display :grid;
+font-size: 1rem;
+top: 2%;
+left: 3rem;
+
+
+}
+
+.slide-out:hover{
+    background: green;
+    left: 0px;
+}
+.slide-out  * {
+    display: inline;
+}
+
         </style>
     </head>
     <body >
         <canvas id="tutorial" width="150" height="150" ></canvas>
+        <div class = "slide-out" >
+
+            <div >
+
+            </div>
+
+        </div>
+
     </body>
 
         <script src ='./script.mjs'>
